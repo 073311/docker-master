@@ -2,13 +2,13 @@ version: '3.7'
 
 services:
 
-  akaunting:
-    container_name: akaunting
+  ievtds:
+    container_name: ievtds
     build:
       dockerfile: fpm-alpine-nginx.Dockerfile
       context: .
     volumes:
-      - akaunting-data:/var/www/html
+      - ievtds-data:/var/www/html
       - ./files/php.ini:/usr/local/etc/php/php.ini
       - ./files/supervisord.conf:/etc/supervisor/conf.d/supervisord.conf
       - ./nginx/nginx.conf:/etc/nginx/nginx.conf
@@ -18,19 +18,19 @@ services:
     env_file:
       - env/run.env
     environment:
-      - AKAUNTING_SETUP
+      - ievtds_SETUP
     depends_on:
-      - akaunting-db
+      - ievtds-db
 
-  akaunting-db:
-    container_name: akaunting-db
+  ievtds-db:
+    container_name: ievtds-db
     image: mariadb
     volumes:
-      - akaunting-db:/var/lib/mysql
+      - ievtds-db:/var/lib/mysql
     restart: unless-stopped
     env_file:
       - env/db.env
 
 volumes:
-  akaunting-data:
-  akaunting-db:
+  ievtds-data:
+  ievtds-db:

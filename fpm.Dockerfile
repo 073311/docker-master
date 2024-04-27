@@ -1,7 +1,7 @@
 FROM php:8.1-fpm
 
 # Arguments defined in docker-compose.yml
-ARG AKAUNTING_DOCKERFILE_VERSION=0.1
+ARG ievtds_DOCKERFILE_VERSION=0.1
 ARG SUPPORTED_LOCALES="en_US.UTF-8"
 
 RUN apt-get update \
@@ -46,18 +46,18 @@ RUN docker-php-ext-configure gd \
    pdo_mysql \
    zip
 
-# Download Akaunting application
-RUN mkdir -p /var/www/akaunting \
-   && curl -Lo /tmp/akaunting.zip 'https://akaunting.com/download.php?version=latest&utm_source=docker&utm_campaign=developers' \
-   && unzip /tmp/akaunting.zip -d /var/www/html \
-   && rm -f /tmp/akaunting.zip
+# Download ievtds application
+RUN mkdir -p /var/www/ievtds \
+   && curl -Lo /tmp/ievtds.zip 'https://ievtds.com/download.php?version=latest&utm_source=docker&utm_campaign=developers' \
+   && unzip /tmp/ievtds.zip -d /var/www/html \
+   && rm -f /tmp/ievtds.zip
 
-COPY files/akaunting-php-fpm.sh /usr/local/bin/akaunting-php-fpm.sh
+COPY files/ievtds-php-fpm.sh /usr/local/bin/ievtds-php-fpm.sh
 COPY files/html /var/www/html
 
 # Set working directory
 WORKDIR /var/www/html
 
 EXPOSE 9000
-ENTRYPOINT ["/usr/local/bin/akaunting-php-fpm.sh"]
+ENTRYPOINT ["/usr/local/bin/ievtds-php-fpm.sh"]
 CMD ["--start"]

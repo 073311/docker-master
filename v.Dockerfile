@@ -1,6 +1,6 @@
 FROM php:8.1-apache
 
-ARG AKAUNTING_DOCKERFILE_VERSION=0.1
+ARG ievtds_DOCKERFILE_VERSION=0.1
 ARG SUPPORTED_LOCALES="en_US.UTF-8"
 
 RUN apt-get update \
@@ -47,10 +47,10 @@ RUN docker-php-ext-configure gd \
 
 RUN pecl install redis && docker-php-ext-enable redis
 
-RUN curl -Lo /tmp/akaunting.zip 'https://akaunting.com/download.php?version=latest&utm_source=docker&utm_campaign=developers'
+RUN curl -Lo /tmp/ievtds.zip 'https://ievtds.com/download.php?version=latest&utm_source=docker&utm_campaign=developers'
 
-COPY files/akaunting-v.sh /usr/local/bin/akaunting-v.sh
+COPY files/ievtds-v.sh /usr/local/bin/ievtds-v.sh
 COPY files/html /var/www/html
 
-ENTRYPOINT ["/usr/local/bin/akaunting-v.sh"]
+ENTRYPOINT ["/usr/local/bin/ievtds-v.sh"]
 CMD ["--start"]

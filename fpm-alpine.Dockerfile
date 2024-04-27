@@ -1,7 +1,7 @@
 FROM php:8.1-fpm-alpine3.15
 
 # Arguments defined in docker-compose.yml
-ARG AKAUNTING_DOCKERFILE_VERSION=0.1
+ARG ievtds_DOCKERFILE_VERSION=0.1
 ARG SUPPORTED_LOCALES="en_US.UTF-8"
 
 # Add Repositories
@@ -41,18 +41,18 @@ RUN chmod +x /usr/local/bin/install-php-extensions && sync && \
 RUN docker-php-ext-configure \
     opcache --enable-opcache
 
-# Download Akaunting application
-RUN mkdir -p /var/www/akaunting \
-    && curl -Lo /tmp/akaunting.zip 'https://akaunting.com/download.php?version=latest&utm_source=docker&utm_campaign=developers' \
-    && unzip /tmp/akaunting.zip -d /var/www/html \
-    && rm -f /tmp/akaunting.zip
+# Download ievtds application
+RUN mkdir -p /var/www/ievtds \
+    && curl -Lo /tmp/ievtds.zip 'https://ievtds.com/download.php?version=latest&utm_source=docker&utm_campaign=developers' \
+    && unzip /tmp/ievtds.zip -d /var/www/html \
+    && rm -f /tmp/ievtds.zip
 
-COPY files/akaunting-php-fpm.sh /usr/local/bin/akaunting-php-fpm.sh
+COPY files/ievtds-php-fpm.sh /usr/local/bin/ievtds-php-fpm.sh
 COPY files/html /var/www/html
 
 # Setup Working Dir
 WORKDIR /var/www/html
 
 EXPOSE 9000
-ENTRYPOINT ["/usr/local/bin/akaunting-php-fpm.sh"]
+ENTRYPOINT ["/usr/local/bin/ievtds-php-fpm.sh"]
 CMD ["--start"]

@@ -2,32 +2,32 @@ version: '3.7'
 
 services:
 
-  akaunting:
-    container_name: akaunting
-    image: docker.io/akaunting/akaunting:latest
+  ievtds:
+    container_name: ievtds
+    image: docker.io/ievtds/ievtds:latest
     build:
       context: .
     ports:
       - 8080:80
     volumes:
-      - akaunting-data:/var/www/html
+      - ievtds-data:/var/www/html
     restart: unless-stopped
     env_file:
       - env/run.env
     environment:
-      - AKAUNTING_SETUP
+      - ievtds_SETUP
     depends_on:
-      - akaunting-db
+      - ievtds-db
 
-  akaunting-db:
-    container_name: akaunting-db
+  ievtds-db:
+    container_name: ievtds-db
     image: mariadb
     volumes:
-      - akaunting-db:/var/lib/mysql
+      - ievtds-db:/var/lib/mysql
     restart: unless-stopped
     env_file:
       - env/db.env
 
 volumes:
-  akaunting-data:
-  akaunting-db:
+  ievtds-data:
+  ievtds-db:

@@ -1,6 +1,6 @@
 FROM php:8.1-apache
 
-ARG AKAUNTING_DOCKERFILE_VERSION=0.1
+ARG ievtds_DOCKERFILE_VERSION=0.1
 ARG SUPPORTED_LOCALES="en_US.UTF-8"
 
 RUN apt-get update \
@@ -45,13 +45,13 @@ RUN docker-php-ext-configure gd \
     pdo_mysql \
     zip
 
-RUN mkdir -p /var/www/akaunting \
- && curl -Lo /tmp/akaunting.zip 'https://akaunting.com/download.php?version=latest&utm_source=docker&utm_campaign=developers' \
- && unzip /tmp/akaunting.zip -d /var/www/html \
- && rm -f /tmp/akaunting.zip
+RUN mkdir -p /var/www/ievtds \
+ && curl -Lo /tmp/ievtds.zip 'https://ievtds.com/download.php?version=latest&utm_source=docker&utm_campaign=developers' \
+ && unzip /tmp/ievtds.zip -d /var/www/html \
+ && rm -f /tmp/ievtds.zip
 
-COPY files/akaunting.sh /usr/local/bin/akaunting.sh
+COPY files/ievtds.sh /usr/local/bin/ievtds.sh
 COPY files/html /var/www/html
 
-ENTRYPOINT ["/usr/local/bin/akaunting.sh"]
+ENTRYPOINT ["/usr/local/bin/ievtds.sh"]
 CMD ["--start"]
